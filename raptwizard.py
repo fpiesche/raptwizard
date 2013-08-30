@@ -397,6 +397,12 @@ class raptWizard():
 #            shutil.copyfile(self.keystore.get(), keystoreTarget)
 
         # copy images
+        # create necessary folders
+        for subdir in ["ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi"]:
+            subdir = os.path.join(self.raptPath.get(), "res/drawable-" + subdir)
+            if not os.path.exists(subdir):
+                os.makedirs(subdir)
+
         for file in os.listdir(self.imagesPath.get()):
             # skip OSX's special folders
             if file[:1] == ".":
@@ -406,13 +412,9 @@ class raptWizard():
             if file == "presplash.png":
                 shutil.copyfile(fullFile, os.path.join(self.gamePath.get(), "android-presplash.png"))
             elif file == "ouya_icon.png":
-                if not os.path.exists(targetDir):
-                    os.makedirs(targetDir)
                 shutil.copyfile(fullFile, os.path.join(self.raptPath.get(), "res/drawable-xhdpi/ouya_icon.png"))
             else:
                 targetDir = os.path.join(self.raptPath.get(), "res/drawable-" + file[:-4])
-                if not os.path.exists(targetDir):
-                    os.makedirs(targetDir)
                 shutil.copyfile(fullFile, os.path.join(targetDir + "/icon.png"))
             # copy 144x144 icon to default path
             if file == "xxhdpi.png":
