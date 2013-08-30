@@ -396,13 +396,13 @@ class raptWizard():
 #                    return
 #            shutil.copyfile(self.keystore.get(), keystoreTarget)
 
-        # copy images
-        # create necessary folders
+        # create folders for icons if needed
         for subdir in ["ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi"]:
             subdir = os.path.join(self.raptPath.get(), "res/drawable-" + subdir)
             if not os.path.exists(subdir):
                 os.makedirs(subdir)
 
+        # copy images
         for file in os.listdir(self.imagesPath.get()):
             # skip OSX's special folders
             if file[:1] == ".":
